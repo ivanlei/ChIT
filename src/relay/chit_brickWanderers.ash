@@ -103,7 +103,7 @@ void bakeWanderers() {
 	}
 	foreach mon, eggs in mimicEggMonsters() {
 		result.append(wanderRow("Mimic Egg", mon, "mimicegg.gif",
-			'<td class="right" title="Chest Mimic eggs held">' + eggs + ' egg' + (eggs == 1 ? '' : 's') + '</td>'));
+			'<td class="right" title="hatch this monster from one of your mimic eggs">' + eggs + 'x</td>'));
 		rows += 1;
 	}
 
