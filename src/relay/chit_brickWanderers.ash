@@ -81,7 +81,7 @@ string wanderBudgetCell(wander_src src) {
 	if(src.countPref != "") {
 		int n = get_property(src.countPref).to_int();
 		if(n > 0)
-			return '<td class="right" title="' + n + ' forced fight' + (n == 1 ? '' : 's') + ' left">' + n + 'x</td>';
+			return '<td class="right" title="' + n + ' forced combat' + (n == 1 ? '' : 's') + ' left">' + n + ' combat' + (n == 1 ? '' : 's') + '</td>';
 	}
 	if(src.counterLabel != "") {
 		int t = counterTurns(src.counterLabel);
