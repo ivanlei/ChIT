@@ -120,6 +120,7 @@ Inside each area you can place any of the following "bricks":
 - shrunkenhead: Provides some info on your reanimated monster, or a reminder to reanimate something if you have an unused shrunken head
 - maximizer: Provides an interface to the mafia maximizer. Not recommended outside of the toolbar. Work in progress.
 - statemodifiers: A list of things like adventure modifiers (noncom forcers, for example) and misc modifiers (stuff that started showing up with the legendary pasta wand foods). You probably don't want to cut this.
+- wanderers: Every monster you currently have copied or queued to fight again - forced wandering encounters (Recall Facts: Monster Habitats, Be Gregarious, Digitize, romantic arrow, Enamorang, Club 'Em Into Next Week) and copies you spend later (fax, Spooky Putty, Rain-Doh, cameras, Spooky VHS tape, Chest Mimic eggs, ...), with fights remaining / return turn / copy state on the right.
 
 ### Layout Variables
 
@@ -135,7 +136,7 @@ Simply place your bricks in the area you want, in the order you want them.
 - chit.toolbar.layout: Comma-separated list of bricks to place in the toolbar
   - Special values:
     - disable - a brick you can add here which is actually a small button to disable ChIT.
-  - Default: trail,quests,modifiers,elements,organs
+  - Default: trail,quests,modifiers,elements,organs,wanderers
 
 The roof, walls and floor of your house can use some special syntax to lay bricks out in rows and columns.
 
