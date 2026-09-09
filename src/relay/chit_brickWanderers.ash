@@ -12,7 +12,7 @@ record wander_src {
 	string label;
 	string monsterPref;   // pref holding the stored monster name
 	string countPref;     // forced-fights-left pref ("" = none)
-	string turnPref;      // total_turns_played() when the wanderer becomes due ("" = none)
+	string counterLabel;  // KoLmafia counter that ticks down to the wander ("" = none)
 	string castPref;      // daily-uses pref ("" = no fixed cap)
 	int castCap;          // daily cast cap; 0 with a castPref means "show N used"
 	string image;         // itemimages/*.gif
@@ -24,10 +24,10 @@ wander_src[int] wanderSources() {
 	// --- forced wandering encounters ---
 	s[s.count()] = new wander_src("Monster Habitats", "_monsterHabitatsMonster", "_monsterHabitatsFightsLeft", "", "_monsterHabitatsRecalled", 3, "map.gif", false);
 	s[s.count()] = new wander_src("Be Gregarious", "beGregariousMonster", "beGregariousFightsLeft", "", "", 0, "happy.gif", false);
-	s[s.count()] = new wander_src("Digitize", "_sourceTerminalDigitizeMonster", "", "", "_sourceTerminalDigitizeUses", 0, "watch.gif", false);
+	s[s.count()] = new wander_src("Digitize", "_sourceTerminalDigitizeMonster", "", "Digitize Monster", "_sourceTerminalDigitizeUses", 0, "watch.gif", false);
 	s[s.count()] = new wander_src("Romantic Arrow", "romanticTarget", "_romanticFightsLeft", "", "_badlyRomanticArrows", 1, "obtuseangel.gif", false);
-	s[s.count()] = new wander_src("Enamorang", "enamorangMonster", "", "enamorangMonsterTurn", "_enamorangs", 0, "loveboomerang.gif", false);
-	s[s.count()] = new wander_src("Club 'Em Into Next Week", "clubEmNextWeekMonster", "", "clubEmNextWeekMonsterTurn", "_clubEmNextWeekUsed", 5, "leg_club2.gif", false);
+	s[s.count()] = new wander_src("Enamorang", "enamorangMonster", "", "Enamorang Monster", "_enamorangs", 0, "loveboomerang.gif", false);
+	s[s.count()] = new wander_src("Club 'Em Into Next Week", "clubEmNextWeekMonster", "", "Club 'Em Into Next Week Monster", "_clubEmNextWeekUsed", 5, "leg_club2.gif", false);
 	// --- copies you spend later ---
 	s[s.count()] = new wander_src("Fax", "photocopyMonster", "", "", "", 0, "photocopy.gif", true);
 	s[s.count()] = new wander_src("Spooky Putty", "spookyPuttyMonster", "", "", "", 0, "sputtycopy.gif", true);
@@ -35,11 +35,30 @@ wander_src[int] wanderSources() {
 	s[s.count()] = new wander_src("4-D Camera", "cameraMonster", "", "", "", 0, "camera.gif", true);
 	s[s.count()] = new wander_src("Crappy Camera", "crappyCameraMonster", "", "", "", 0, "camera.gif", true);
 	s[s.count()] = new wander_src("Print Screen", "screencappedMonster", "", "", "", 0, "printscreen.gif", true);
-	s[s.count()] = new wander_src("Spooky VHS Tape", "spookyVHSTapeMonster", "", "spookyVHSTapeMonsterTurn", "", 0, "2002vhs.gif", true);
+	s[s.count()] = new wander_src("Spooky VHS Tape", "spookyVHSTapeMonster", "", "Spooky VHS Monster", "", 0, "2002vhs.gif", true);
 	s[s.count()] = new wander_src("Ice Sculpture", "iceSculptureMonster", "", "", "", 0, "icesculpt2.gif", true);
 	s[s.count()] = new wander_src("Wax Monster", "waxMonster", "", "", "", 0, "waxlips.gif", true);
 	s[s.count()] = new wander_src("Envyfish Egg", "envyfishMonster", "", "", "", 0, "roe.gif", true);
 	return s;
+}
+
+// counterTurns returns how many turns until the named KoLmafia counter fires
+// (the same number the Effects brick shows for these wanderers), or -1 if there
+// is no such counter. Binary-searches get_counters, which only answers "is a
+// matching counter due within [lo, hi] turns?".
+int counterTurns(string label) {
+	if(label == "" || get_counters(label, 0, 500) == "")
+		return -1;
+	int lo = 0;
+	int hi = 500;
+	while(lo < hi) {
+		int mid = (lo + hi) / 2;
+		if(get_counters(label, 0, mid) != "")
+			hi = mid;
+		else
+			lo = mid + 1;
+	}
+	return lo;
 }
 
 // mimicEggMonsters is a comma-joined list of <monsterId>:<eggs> pairs - the
@@ -79,14 +98,12 @@ string wanderBudgetCell(wander_src src) {
 		if(n > 0)
 			return '<td class="right" title="' + n + ' forced fight' + (n == 1 ? '' : 's') + ' left">' + n + 'x</td>';
 	}
-	if(src.turnPref != "") {
-		int due = get_property(src.turnPref).to_int();
-		if(due > 0) {
-			int t = due - total_turns_played();
-			if(t <= 0)
-				return '<td class="right" title="ready to wander in now">due</td>';
+	if(src.counterLabel != "") {
+		int t = counterTurns(src.counterLabel);
+		if(t == 0)
+			return '<td class="right" title="due to wander now">due</td>';
+		if(t > 0)
 			return '<td class="right" title="wanders in about ' + t + ' turn' + (t == 1 ? '' : 's') + '">' + t + 't</td>';
-		}
 	}
 	if(src.copy)
 		return '<td class="right" title="copy available to fight">copy</td>';
