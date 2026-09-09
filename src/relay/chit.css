@@ -623,29 +623,35 @@ div.progressbar {
 	padding-right: 4px;
 }
 
-/* Wandering Monsters brick: rows styled like Effects rows */
-#chit_wanderers td {
+/* Wandering Monsters / Summon & Copy bricks: rows styled like Effects rows */
+#chit_wanderers td,
+#chit_summoncopy td {
 	border-bottom: 1px solid #f0f0f0;
 	vertical-align: middle;
 	padding: 1px 3px;
 	text-align: left;
 }
-#chit_wanderers tr:last-child td {
+#chit_wanderers tr:last-child td,
+#chit_summoncopy tr:last-child td {
 	border-bottom: 0;
 }
-#chit_wanderers td.icon {
+#chit_wanderers td.icon,
+#chit_summoncopy td.icon {
 	width: 20px;
 	padding: 1px 2px;
 	background-color: transparent;
 }
-#chit_wanderers td.icon img {
+#chit_wanderers td.icon img,
+#chit_summoncopy td.icon img {
 	width: 20px;
 	height: 20px;
 }
-#chit_wanderers .efmods {
+#chit_wanderers .efmods,
+#chit_summoncopy .efmods {
 	font-size: 10px;
 }
-#chit_wanderers td.right {
+#chit_wanderers td.right,
+#chit_summoncopy td.right {
 	text-align: right;
 	white-space: nowrap;
 	padding-right: 4px;
