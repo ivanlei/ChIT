@@ -16,6 +16,7 @@ import "chit_brickNext.ash";
 import "chit_brickShrunkenHead.ash";
 import "chit_brickMaximizer.ash";
 import "chit_brickStateModifiers.ash";
+import "chit_brickSniffs.ash";
 
 // Set default values for configuration properties.
 // For more information refer to the README.md on Github
@@ -63,7 +64,7 @@ chit_setvar("chit.floor.layout", "update,familiar");
 chit_setvar("chit.roof.layout", "character,stats,gear");
 chit_setvar("chit.stats.layout", "muscle,myst,moxie|hp,mp,axel|mcd|drip|trail,florist");
 chit_setvar("chit.toolbar.layout", "trail,quests,modifiers,elements,organs");
-chit_setvar("chit.walls.layout", "helpers,statemodifiers,thrall,robo,vykea,effects,horsery,boombox,shrunkenhead");
+chit_setvar("chit.walls.layout", "helpers,statemodifiers,thrall,robo,vykea,effects,sniffs,horsery,boombox,shrunkenhead");
 chit_setvar("chit.quests.hide", false);
 chit_setvar("chit.stats.showbars", true);
 chit_setvar("chit.thrall.showname", false);
@@ -4395,6 +4396,7 @@ void bakeBricks() {
 						case "shrunkenhead": bake_shrunkenhead(); break;
 						case "maximizer": bake_maximizer(); break;
 						case "statemodifiers": bake_statemodifiers(); break;
+						case "sniffs": bakeSniffs(); break;
 
 						// Reserved words
 						case "helpers": case "update": break;
@@ -4828,6 +4830,7 @@ buffer modifyPage(buffer source) {
 	chitTools["quests"] = "No quests available|questsnone.png";
 	chitTools["mcd"] = "MCD not available|mcdnone.png";
 	chitTools["trail"] = "No recent adventures|trailnone.png";
+	chitTools["sniffs"] = "No monsters sniffed|trail.png";
 	chitTools["substats"] = "Substats|stats.png";
 	chitTools["organs"] = "Consumption|organs.png";
 	chitTools["modifiers"] = "Modifiers|modifiers.png";
