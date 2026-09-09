@@ -80,7 +80,7 @@ void bakeSniffs() {
 	sniff_entry[int] sniffs = activeSniffs();
 
 	buffer result;
-	result.brickStart('Sniffs', 'sniffs');
+	result.brickStart('Sniffs', 'sniffs', '2'); // 2 columns: icon + info
 
 	if(sniffs.count() == 0) {
 		result.append('<tr><td class="info">No monsters sniffed.</td></tr>');
