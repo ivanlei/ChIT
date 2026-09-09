@@ -2,8 +2,8 @@
 //
 // KoLmafia keeps *every* active monster-tracking effect ("sniff") in one
 // preference, trackedMonsters, as colon-joined <monster>:<method>:<turn>
-// triples - not just Transcendent Olfaction. This brick surfaces all of them;
-// chit_effectInfo.ash still shows On the Trail inline with the other effects.
+// triples - not just Transcendent Olfaction. This brick surfaces all of them,
+// styled like an effect row in the Effects brick (icon + name + grey monster).
 
 record sniff_entry {
 	string monster;
@@ -18,16 +18,31 @@ string sniffLabel(string method) {
 		case "Transcendent Olfaction": return "On the Trail";
 		case "Gallapagosian Mating Call": return "Mating Call";
 		case "Long Con": return "Long Con";
-		case "Nosy Nose": return "Nosy Nose";
+		case "Nosy Nose":
+		case "Get a Good Whiff of This Guy": return "Good Whiff";
 		case "McHugeLarge Slash": return "McHugeLarge Slash";
-		case "Baseball Diamond": return "Baseball";
+		case "Baseball Diamond":
+		case "Some Cheddar": return "Baseball";
 		case "Offer Latte to Opponent": return "Latte";
 		case "Perceived Sphere": return "Perceived Sphere";
-		case "Get a Good Whiff of This Guy": return "Good Whiff";
 		case "Show Your Boring Familiar Pictures": return "Boring Pictures";
 		case "motif": return "Motif";
 	}
 	return method;
+}
+
+// Icon (itemimages/*.gif) for a method: the matching skill's icon where there
+// is one, a hand-picked image for the non-skill trackers, else the Olfaction
+// snout as a generic "sniff" glyph.
+string sniffImage(string method) {
+	switch(method) {
+		case "Baseball Diamond":
+		case "Some Cheddar": return "bdiamond.gif";
+	}
+	skill s = to_skill(method);
+	if(s != $skill[none] && s.image != "")
+		return s.image;
+	return "snout.gif";
 }
 
 sniff_entry[int] activeSniffs() {
@@ -68,24 +83,18 @@ void bakeSniffs() {
 	result.brickStart('Sniffs', 'sniffs');
 
 	if(sniffs.count() == 0) {
-		result.tagStart('tr');
-		result.tagStart('td', attrmap { 'class': 'info' });
-		result.append('No monsters sniffed.');
-		result.tagFinish('td');
-		result.tagFinish('tr');
+		result.append('<tr><td class="info">No monsters sniffed.</td></tr>');
 	} else {
 		foreach i, s in sniffs {
-			result.tagStart('tr');
-			result.tagStart('td', attrmap {
-				'class': 'info',
-				'title': s.method + ' - set on turn ' + s.setTurn,
-			});
-			result.append('<b>');
-			result.append(s.monster);
-			result.append('</b> &mdash; ');
+			result.append('<tr class="effect" title="');
+			result.append(s.method + ' &mdash; set on turn ' + s.setTurn);
+			result.append('"><td class="icon"><img src="');
+			result.append(itemimage(sniffImage(s.method)));
+			result.append('"></td><td class="info">');
 			result.append(sniffLabel(s.method));
-			result.tagFinish('td');
-			result.tagFinish('tr');
+			result.append('<br><span class="efmods">');
+			result.append(s.monster);
+			result.append('</span></td></tr>');
 		}
 	}
 
