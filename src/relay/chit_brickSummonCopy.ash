@@ -58,8 +58,14 @@ boolean copyRelevant(copy_src src) {
 	if(src.madePref != "" && get_property(src.madePref).to_int() > 0) return true;
 	if(src.usedPref != "" && get_property(src.usedPref).to_boolean()) return true;
 	if(src.haveItem != "" && item_amount(to_item(src.haveItem)) > 0) return true;
-	// Fax has no inventory item - detect the clan fax machine instead.
-	if(src.label == "Fax" && (get_clan_lounge() contains $item[deluxe fax machine])) return true;
+	// Fax has no inventory item. get_clan_lounge() is only populated after you
+	// visit the VIP lounge this session, so treat an empty result as "unknown"
+	// and show the row anyway; only hide it when we can see a lounge with no
+	// fax machine in it. (No clan-hopping to find one elsewhere.)
+	if(src.label == "Fax") {
+		int[item] lounge = get_clan_lounge();
+		return lounge.count() == 0 || (lounge contains $item[deluxe fax machine]);
+	}
 	return false;
 }
 
