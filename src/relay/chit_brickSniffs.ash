@@ -100,5 +100,5 @@ void bakeSniffs() {
 
 	result.brickFinish();
 
-	chitTools["sniffs"] = (sniffs.count() == 0 ? "No monsters sniffed" : "Sniffed monsters") + "|trail.png";
+	chitTools["sniffs"] = (sniffs.count() == 0 ? "No monsters sniffed" : "Sniffed monsters") + "|sniffs.gif";
 }

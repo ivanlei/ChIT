@@ -63,8 +63,8 @@ chit_setvar("chit.effects.layout", "songs,dread,expression,shanty,asdon,aob,aoj,
 chit_setvar("chit.floor.layout", "update,familiar");
 chit_setvar("chit.roof.layout", "character,stats,gear");
 chit_setvar("chit.stats.layout", "muscle,myst,moxie|hp,mp,axel|mcd|drip|trail,florist");
-chit_setvar("chit.toolbar.layout", "trail,quests,modifiers,elements,organs");
-chit_setvar("chit.walls.layout", "helpers,statemodifiers,thrall,robo,vykea,sniffs,effects,horsery,boombox,shrunkenhead");
+chit_setvar("chit.toolbar.layout", "trail,quests,modifiers,elements,organs,sniffs");
+chit_setvar("chit.walls.layout", "helpers,statemodifiers,thrall,robo,vykea,effects,horsery,boombox,shrunkenhead");
 chit_setvar("chit.quests.hide", false);
 chit_setvar("chit.stats.showbars", true);
 chit_setvar("chit.thrall.showname", false);
@@ -4719,6 +4719,7 @@ buffer buildCloset() {
 			case "update":
 			case "gear":
 			case "maximizer":
+			case "sniffs":
 				if ((chitBricks contains brick) && (chitBricks[brick] != "")) {
 					result.append('<div id="chit_tool' + brick + '" class="chit_skeleton" style="display:none">');
 					result.append(chitBricks[brick]);
@@ -4830,7 +4831,7 @@ buffer modifyPage(buffer source) {
 	chitTools["quests"] = "No quests available|questsnone.png";
 	chitTools["mcd"] = "MCD not available|mcdnone.png";
 	chitTools["trail"] = "No recent adventures|trailnone.png";
-	chitTools["sniffs"] = "No monsters sniffed|trail.png";
+	chitTools["sniffs"] = "No monsters sniffed|sniffs.gif";
 	chitTools["substats"] = "Substats|stats.png";
 	chitTools["organs"] = "Consumption|organs.png";
 	chitTools["modifiers"] = "Modifiers|modifiers.png";
