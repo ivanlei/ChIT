@@ -120,8 +120,8 @@ Inside each area you can place any of the following "bricks":
 - shrunkenhead: Provides some info on your reanimated monster, or a reminder to reanimate something if you have an unused shrunken head
 - maximizer: Provides an interface to the mafia maximizer. Not recommended outside of the toolbar. Work in progress.
 - statemodifiers: A list of things like adventure modifiers (noncom forcers, for example) and misc modifiers (stuff that started showing up with the legendary pasta wand foods). You probably don't want to cut this.
-- wanderers: Monsters you've forced to turn up as a wandering encounter (Recall Facts: Monster Habitats, Be Gregarious, Digitize, romantic arrow, Enamorang, Club 'Em Into Next Week, Spooky VHS Tape), with forced fights left or turns-until-it-wanders on the right and casts used today in grey
-- summoncopy: The monster copiers you own - fax, Spooky Putty, Rain-Doh, 4-D / crappy cameras, print screen, ice sculpture, envyfish egg, blank Spooky VHS tapes, Chest Mimic eggs - showing what's loaded and how many more copies you can make or use today
+- wanderers: Monsters you've forced to turn up as a wandering encounter - Recall Facts: Monster Habitats, Be Gregarious, Digitize, romantic arrow, Enamorang, Club 'Em Into Next Week, Spooky VHS Tape. Each row shows the monster, casts used today (e.g. `1/5`) in grey, and either forced combats left or turns-until-it-wanders on the right. Off by default; add `wanderers` to a layout to use it.
+- summoncopy: The monster copiers you own - fax, Spooky Putty, Rain-Doh, 4-D / crappy cameras, print screen, ice sculpture, envyfish egg, blank Spooky VHS tapes, Chest Mimic eggs. Each row shows what's loaded (or `-`) and how many more copies you can make or use today (`ready today` / `2 left today` / `N in inv`). Off by default; add `summoncopy` to a layout to use it.
 
 ### Layout Variables
 
@@ -137,7 +137,7 @@ Simply place your bricks in the area you want, in the order you want them.
 - chit.toolbar.layout: Comma-separated list of bricks to place in the toolbar
   - Special values:
     - disable - a brick you can add here which is actually a small button to disable ChIT.
-  - Default: trail,quests,modifiers,elements,organs,wanderers,summoncopy
+  - Default: trail,quests,modifiers,elements,organs
 
 The roof, walls and floor of your house can use some special syntax to lay bricks out in rows and columns.
 
