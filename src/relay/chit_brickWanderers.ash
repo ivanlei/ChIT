@@ -40,13 +40,19 @@ wander_src[int] wanderSources() {
 	return s;
 }
 
-// mimicEggMonsters is a comma-joined list of monsters you have a Chest Mimic egg
-// for; handled separately since it can hold several at once.
-string[int] mimicEggMonsters() {
-	string[int] out;
+// mimicEggMonsters is a comma-joined list of <monsterId>:<eggs> pairs - the
+// Chest Mimic eggs you're holding. Returns monster-name -> egg count.
+int[string] mimicEggMonsters() {
+	int[string] out;
 	string raw = get_property("mimicEggMonsters");
-	if(raw != "")
-		out = split_string(raw, "\\s*,\\s*");
+	if(raw == "") return out;
+	foreach i, pair in split_string(raw, "\\s*,\\s*") {
+		string[int] p = split_string(pair, ":");
+		if(p.count() < 1) continue;
+		monster m = to_monster(p[0].to_int());
+		if(m == $monster[none]) continue;
+		out[m.name] = p.count() > 1 ? p[1].to_int() : 1;
+	}
 	return out;
 }
 
@@ -95,9 +101,9 @@ void bakeWanderers() {
 		result.append(wanderRow(src.label, mon, src.image, wanderBudgetCell(src)));
 		rows += 1;
 	}
-	foreach i, mon in mimicEggMonsters() {
+	foreach mon, eggs in mimicEggMonsters() {
 		result.append(wanderRow("Mimic Egg", mon, "mimicegg.gif",
-			'<td class="right" title="Chest Mimic egg">egg</td>'));
+			'<td class="right" title="Chest Mimic eggs held">' + eggs + ' egg' + (eggs == 1 ? '' : 's') + '</td>'));
 		rows += 1;
 	}
 
