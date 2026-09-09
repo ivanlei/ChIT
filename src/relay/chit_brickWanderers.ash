@@ -77,17 +77,15 @@ int[string] mimicEggMonsters() {
 	return out;
 }
 
-// grey sub-line: the monster, plus casts left today when the source has a cap.
+// grey sub-line: the monster, plus today's casts as <used>/<limit> (ChIT's
+// usual form) when the source has a fixed daily cap.
 string wanderSub(wander_src src, string mon) {
 	if(src.castPref == "") return mon;
 	int used = get_property(src.castPref).to_int();
-	if(src.castCap > 0) {
-		int left = src.castCap - used;
-		if(left < 0) left = 0;
-		return mon + ' &middot; ' + left + ' left today';
-	}
+	if(src.castCap > 0)
+		return mon + ' &middot; ' + used + '/' + src.castCap;
 	if(used > 0)
-		return mon + ' &middot; used ' + used + 'x';
+		return mon + ' &middot; ' + used + ' used';
 	return mon;
 }
 
