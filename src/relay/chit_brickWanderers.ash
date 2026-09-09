@@ -88,7 +88,7 @@ string wanderBudgetCell(wander_src src) {
 		if(t == 0)
 			return '<td class="right" title="due to wander now">due</td>';
 		if(t > 0)
-			return '<td class="right" title="wanders in about ' + t + ' turn' + (t == 1 ? '' : 's') + '">' + t + 't</td>';
+			return '<td class="right" title="wanders in about ' + t + ' turn' + (t == 1 ? '' : 's') + '">' + t + '</td>';
 	}
 	return '<td class="right"></td>';
 }
