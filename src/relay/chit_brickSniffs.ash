@@ -22,7 +22,7 @@ string sniffLabel(string method) {
 		case "Get a Good Whiff of This Guy": return "Good Whiff";
 		case "McHugeLarge Slash": return "McHugeLarge Slash";
 		case "Baseball Diamond":
-		case "Some Cheddar": return "Baseball";
+		case "Some Cheddar": return "Some Cheddar";
 		case "Offer Latte to Opponent": return "Latte";
 		case "Perceived Sphere": return "Perceived Sphere";
 		case "Show Your Boring Familiar Pictures": return "Boring Pictures";
@@ -44,8 +44,10 @@ sniff_limit sniffLimitFor(string method) {
 		case "McHugeLarge Slash": return new sniff_limit("_mcHugeLargeSlashUses", 3);
 		case "Long Con": return new sniff_limit("_longConUsed", 5);
 		case "Offer Latte to Opponent": return new sniff_limit("_latteCopyUsed", 1);
+		// Baseball Diamond: 3 innings ("Play Ball!") per day, whatever pitch you
+		// choose - not being able to play a 4th caps "Some Cheddar" at 3 too.
 		case "Baseball Diamond":
-		case "Some Cheddar": return new sniff_limit("_baseballInnings", 9);
+		case "Some Cheddar": return new sniff_limit("_baseballInnings", 3);
 	}
 	return new sniff_limit("", 0);
 }
