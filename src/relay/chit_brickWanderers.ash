@@ -110,5 +110,5 @@ void bakeWanderers() {
 
 	result.brickFinish();
 
-	chitTools["wanderers"] = (rows == 0 ? "No queued wanderers" : "Queued wandering monsters") + "|wanderers.gif";
+	chitTools["wanderers"] = (rows == 0 ? "No queued wanderers" : "Queued wandering monsters") + "|wander.gif";
 }

@@ -4834,7 +4834,7 @@ buffer modifyPage(buffer source) {
 	chitTools["quests"] = "No quests available|questsnone.png";
 	chitTools["mcd"] = "MCD not available|mcdnone.png";
 	chitTools["trail"] = "No recent adventures|trailnone.png";
-	chitTools["wanderers"] = "No queued wanderers|wanderers.gif";
+	chitTools["wanderers"] = "No queued wanderers|wander.gif";
 	chitTools["summoncopy"] = "No monster copies|summoncopy.gif";
 	chitTools["substats"] = "Substats|stats.png";
 	chitTools["organs"] = "Consumption|organs.png";
