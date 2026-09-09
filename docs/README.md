@@ -121,7 +121,7 @@ Inside each area you can place any of the following "bricks":
 - maximizer: Provides an interface to the mafia maximizer. Not recommended outside of the toolbar. Work in progress.
 - statemodifiers: A list of things like adventure modifiers (noncom forcers, for example) and misc modifiers (stuff that started showing up with the legendary pasta wand foods). You probably don't want to cut this.
 - wanderers: Monsters you've forced to turn up as a wandering encounter (Recall Facts: Monster Habitats, Be Gregarious, Digitize, romantic arrow, Enamorang, Club 'Em Into Next Week, Spooky VHS Tape), with forced fights left or turns-until-it-wanders on the right and casts used today in grey
-- summoncopy: Monster copies you're holding and can use to jump straight into a fight (fax, Spooky Putty, Rain-Doh, 4-D / crappy cameras, print screen, ice sculpture, wax monster, envyfish egg, Chest Mimic eggs)
+- summoncopy: The monster copiers you own - fax, Spooky Putty, Rain-Doh, 4-D / crappy cameras, print screen, ice sculpture, envyfish egg, blank Spooky VHS tapes, Chest Mimic eggs - showing what's loaded and how many more copies you can make or use today
 
 ### Layout Variables
 
