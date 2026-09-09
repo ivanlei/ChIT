@@ -90,5 +90,5 @@ void bakeSummonCopy() {
 
 	result.brickFinish();
 
-	chitTools["summoncopy"] = (rows == 0 ? "No monster copies" : "Monster copies in hand") + "|summoncopy.gif";
+	chitTools["summoncopy"] = (rows == 0 ? "No monster copies" : "Monster copies in hand") + "|copy.gif";
 }

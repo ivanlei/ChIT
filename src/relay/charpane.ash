@@ -4835,7 +4835,7 @@ buffer modifyPage(buffer source) {
 	chitTools["mcd"] = "MCD not available|mcdnone.png";
 	chitTools["trail"] = "No recent adventures|trailnone.png";
 	chitTools["wanderers"] = "No queued wanderers|wander.gif";
-	chitTools["summoncopy"] = "No monster copies|summoncopy.gif";
+	chitTools["summoncopy"] = "No monster copies|copy.gif";
 	chitTools["substats"] = "Substats|stats.png";
 	chitTools["organs"] = "Consumption|organs.png";
 	chitTools["modifiers"] = "Modifiers|modifiers.png";
