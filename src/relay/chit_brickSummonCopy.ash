@@ -58,6 +58,8 @@ boolean copyRelevant(copy_src src) {
 	if(src.madePref != "" && get_property(src.madePref).to_int() > 0) return true;
 	if(src.usedPref != "" && get_property(src.usedPref).to_boolean()) return true;
 	if(src.haveItem != "" && item_amount(to_item(src.haveItem)) > 0) return true;
+	// Fax has no inventory item - detect the clan fax machine instead.
+	if(src.label == "Fax" && (get_clan_lounge() contains $item[deluxe fax machine])) return true;
 	return false;
 }
 
