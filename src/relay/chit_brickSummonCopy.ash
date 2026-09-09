@@ -31,23 +31,8 @@ copy_src[int] copySources() {
 	s[s.count()] = new copy_src("Ice Sculpture", "iceSculptureMonster", "", "", 0, "_iceSculptureUsed", "unfinished ice sculpture", "icesculpt2.gif");
 	s[s.count()] = new copy_src("Envyfish Egg", "envyfishMonster", "", "", 0, "_envyfishEggUsed", "", "roe.gif");
 	s[s.count()] = new copy_src("Spooky VHS Tape", "", "spooky VHS tape", "", 0, "", "", "2002vhs.gif");
+	s[s.count()] = new copy_src("Mimic Egg", "", "mimic egg", "", 0, "", "", "mimicegg.gif");
 	return s;
-}
-
-// mimicEggMonsters is a comma-joined list of <monsterId>:<eggs> pairs - the
-// Chest Mimic eggs you're holding. Returns monster-name -> egg count.
-int[string] mimicEggMonsters() {
-	int[string] out;
-	string raw = get_property("mimicEggMonsters");
-	if(raw == "") return out;
-	foreach i, pair in split_string(raw, "\\s*,\\s*") {
-		string[int] p = split_string(pair, ":");
-		if(p.count() < 1) continue;
-		monster m = to_monster(p[0].to_int());
-		if(m == $monster[none]) continue;
-		out[m.name] = p.count() > 1 ? p[1].to_int() : 1;
-	}
-	return out;
 }
 
 // how many more copies you can make / use today, as a short phrase, or "".
@@ -89,11 +74,6 @@ void bakeSummonCopy() {
 		string cell = budget == "" ? '<td class="right"></td>'
 			: '<td class="right" title="copies you can still make or use today">' + budget + '</td>';
 		result.append(monsterQueueRow(src.label, sub, src.image, cell));
-		rows += 1;
-	}
-	foreach mon, eggs in mimicEggMonsters() {
-		result.append(monsterQueueRow("Mimic Egg", mon, "mimicegg.gif",
-			'<td class="right" title="mimic eggs holding this monster\'s DNA">' + eggs + ' egg' + (eggs == 1 ? '' : 's') + '</td>'));
 		rows += 1;
 	}
 
