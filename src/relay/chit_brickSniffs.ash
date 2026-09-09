@@ -31,6 +31,25 @@ string sniffLabel(string method) {
 	return method;
 }
 
+// Daily cast cap for a method and the preference that counts uses, from
+// KoLmafia's dailylimits.txt. cap 0 == no daily limit (shown as infinity).
+record sniff_limit {
+	string pref;
+	int cap;
+};
+
+sniff_limit sniffLimitFor(string method) {
+	switch(method) {
+		case "Transcendent Olfaction": return new sniff_limit("_olfactionsUsed", 3);
+		case "McHugeLarge Slash": return new sniff_limit("_mcHugeLargeSlashUses", 3);
+		case "Long Con": return new sniff_limit("_longConUsed", 5);
+		case "Offer Latte to Opponent": return new sniff_limit("_latteCopyUsed", 1);
+		case "Baseball Diamond":
+		case "Some Cheddar": return new sniff_limit("_baseballInnings", 9);
+	}
+	return new sniff_limit("", 0);
+}
+
 // Icon (itemimages/*.gif) for a method: the matching skill's icon where there
 // is one, a hand-picked image for the non-skill trackers, else the Olfaction
 // snout as a generic "sniff" glyph.
@@ -80,10 +99,10 @@ void bakeSniffs() {
 	sniff_entry[int] sniffs = activeSniffs();
 
 	buffer result;
-	result.brickStart('Sniffs', 'sniffs', '2'); // 2 columns: icon + info
+	result.brickStart('Sniffs', 'sniffs', '3'); // icon + info + casts-left
 
 	if(sniffs.count() == 0) {
-		result.append('<tr><td class="info">No monsters sniffed.</td></tr>');
+		result.append('<tr><td class="info" colspan="3">No monsters sniffed.</td></tr>');
 	} else {
 		foreach i, s in sniffs {
 			result.append('<tr class="effect" title="');
@@ -94,7 +113,21 @@ void bakeSniffs() {
 			result.append(sniffLabel(s.method));
 			result.append('<br><span class="efmods">');
 			result.append(s.monster);
-			result.append('</span></td></tr>');
+			result.append('</span></td>');
+
+			sniff_limit lim = sniffLimitFor(s.method);
+			if(lim.cap > 0) {
+				int used = get_property(lim.pref).to_int();
+				int left = lim.cap - used;
+				if(left < 0) left = 0;
+				result.append('<td class="right" title="');
+				result.append(used + ' of ' + lim.cap + ' cast today">');
+				result.append(left + '/' + lim.cap);
+				result.append('</td>');
+			} else {
+				result.append('<td class="right infinity" title="no daily limit">&infin;</td>');
+			}
+			result.append('</tr>');
 		}
 	}
 

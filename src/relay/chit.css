@@ -645,6 +645,18 @@ div.progressbar {
 #chit_sniffs .efmods {
 	font-size: 10px;
 }
+#chit_sniffs td.right {
+	text-align: right;
+	white-space: nowrap;
+	padding-right: 4px;
+	font-size: 11px;
+	color: #555555;
+}
+#chit_sniffs td.right.infinity {
+	font-size: 16px;
+	font-weight: bold;
+	color: inherit;
+}
 
 .efmods {
 	color: #777777; /* slightly darker than modspooky */
